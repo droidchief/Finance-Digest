@@ -12,18 +12,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'FinHub',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      initialRoute: "/",
-      routes: {
-        "/" : (_) => EnterNameScreen(),
-        "/enable-notification" : (_) => EnableNotificationScreen(),
-        "/news-feed" : (_) => EnterNameScreen()
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+          currentFocus.focusedChild?.unfocus();
+        }
       },
+      child: MaterialApp(
+        title: 'FinHub',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        ),
+        initialRoute: "/",
+        routes: {
+          "/" : (_) => EnterNameScreen(),
+          "/enable-notification" : (_) => EnableNotificationScreen(),
+          "/news-feed" : (_) => EnterNameScreen()
+        },
+      ),
     );
   }
 }
