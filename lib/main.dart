@@ -1,5 +1,6 @@
 import 'package:fin_hub/features/news/presentation/screens/enable_notification_screen.dart';
 import 'package:fin_hub/features/news/presentation/screens/enter_name_screen.dart';
+import 'package:fin_hub/features/news/presentation/screens/news_feed_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "/" : (_) => EnterNameScreen(),
           "/enable-notification" : (_) => EnableNotificationScreen(),
-          "/news-feed" : (_) => EnterNameScreen()
+          "/news-feed" : (_) => NewsFeedScreen()
         },
       ),
     );
