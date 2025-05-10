@@ -80,7 +80,7 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
                     itemBuilder: (context, index) {
                       final newsItem = news?[index];
                       return newsItem != null
-                          ? NewsTile(newsItem: newsItem)
+                          ? NewsTile(newsModel: newsItem)
                           : SizedBox.shrink();
                     },
                   );

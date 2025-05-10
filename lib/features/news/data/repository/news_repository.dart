@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -22,7 +24,7 @@ class NewsRepository {
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data;
-        debugPrint("Fetch news success ${data}");
+        log("Fetch news success ${data}");
         return data.map((json) => NewsModel.fromJson(json)).toList();
       } else {
         debugPrint("Fetch news error");
