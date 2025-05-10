@@ -15,11 +15,7 @@ class NewsTileShimmer extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Row(
           children: [
-            Container(
-              width: 100,
-              height: 100,
-              color: AppColors.black,
-            ),
+            Container(width: 100, height: 100, color: AppColors.black),
             const Gap(16),
             Expanded(
               child: Column(
@@ -27,12 +23,20 @@ class NewsTileShimmer extends StatelessWidget {
                 children: [
                   Container(height: 12, width: 80, color: AppColors.black),
                   const Gap(20),
-                  Container(height: 20, width: double.infinity, color: AppColors.black),
+                  Container(
+                    height: 20,
+                    width: double.infinity,
+                    color: AppColors.black,
+                  ),
                   const Gap(6),
-                  Container(height: 20, width: double.infinity, color: AppColors.black),
+                  Container(
+                    height: 20,
+                    width: double.infinity,
+                    color: AppColors.black,
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

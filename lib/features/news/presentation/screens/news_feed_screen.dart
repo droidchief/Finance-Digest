@@ -73,58 +73,75 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
             ),
             BlocBuilder<NewsBloc, NewsState>(
               builder: (context, state) {
+                Widget listView;
+
                 if (state is FetchNewsSuccess) {
                   final news = state.news;
-                  return ListView.builder(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                  listView = ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     itemCount: news?.length ?? 0,
                     itemBuilder: (context, index) {
                       final newsItem = news?[index];
                       return newsItem != null
                           ? NewsTile(newsModel: newsItem)
-                          : SizedBox.shrink();
+                          : const SizedBox.shrink();
                     },
                   );
-                }
-                if (state is FetchNewsLoading) {
-                  return ListView.builder(
+                } else if (state is FetchNewsLoading) {
+                  listView = ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     itemCount: 10,
                     itemBuilder: (context, index) => const NewsTileShimmer(),
                   );
-                }
-                if (state is FetchNewsError) {
-                  return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(50),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            state.message,
-                            style: TextStyle(
-                              fontSize: 14,
-                              height: 1.25,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.white,
+                } else if (state is FetchNewsError) {
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      context.read<NewsBloc>().add(FetchNews());
+                    },
+                    child: ListView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.8,
+                          child: Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  state.message,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    height: 1.25,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const Gap(20),
+                                PrimaryButton(
+                                  width: 120,
+                                  onPressed: () {
+                                    context.read<NewsBloc>().add(FetchNews());
+                                  },
+                                  text: "Retry",
+                                ),
+                              ],
                             ),
-                            textAlign: TextAlign.center,
                           ),
-                          const Gap(20),
-                          PrimaryButton(
-                            width: 120,
-                            onPressed: () {
-                              context.read<NewsBloc>().add(FetchNews());
-                            },
-                              text: "Retry",
-                          )
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   );
+                } else {
+                  listView = const SizedBox.shrink();
                 }
 
-                return SizedBox.shrink();
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    context.read<NewsBloc>().add(FetchNews());
+                  },
+                  child: listView,
+                );
               },
             ),
           ],
