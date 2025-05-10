@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../core/app_config.dart';
 import '../../../../core/network/dio_client.dart';
+import '../../../../core/network/dio_exception.dart';
 import '../models/news_model.dart';
 
 class NewsRepository {
@@ -25,10 +26,13 @@ class NewsRepository {
         return data.map((json) => NewsModel.fromJson(json)).toList();
       } else {
         debugPrint("Fetch news error");
-        throw Exception('Failed to load news');
+        throw CustomException(handleHttpError(response.statusCode));
       }
+
     } on DioException catch (e) {
-      throw Exception('API Error: ${e.message}');
+      throw CustomException(handleDioError(e));
+    } catch (e) {
+      throw CustomException("Something went wrong");
     }
   }
 }

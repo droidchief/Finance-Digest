@@ -4,6 +4,7 @@ import 'package:fin_hub/shared/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../data/models/news_model.dart';
 
@@ -91,14 +92,28 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(50),
-                      child: Text(
-                        state.message,
-                        style: TextStyle(
-                          fontSize: 14,
-                          height: 1.25,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.white,
-                        ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            state.message,
+                            style: TextStyle(
+                              fontSize: 14,
+                              height: 1.25,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const Gap(20),
+                          PrimaryButton(
+                            width: 120,
+                            onPressed: () {
+                              context.read<NewsBloc>().add(FetchNews());
+                            },
+                              text: "Retry",
+                          )
+                        ],
                       ),
                     ),
                   );
