@@ -7,6 +7,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../shared/primary_button.dart';
 import '../../data/models/news_model.dart';
 import '../widgets/news_tile.dart';
+import '../widgets/news_tile_shimmer.dart';
 
 class NewsFeedScreen extends StatefulWidget {
   const NewsFeedScreen({super.key});
@@ -86,7 +87,11 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
                   );
                 }
                 if (state is FetchNewsLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    itemCount: 10,
+                    itemBuilder: (context, index) => const NewsTileShimmer(),
+                  );
                 }
                 if (state is FetchNewsError) {
                   return Center(
