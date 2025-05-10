@@ -1,7 +1,10 @@
+import 'package:fin_hub/bloc/news_bloc.dart';
+import 'package:fin_hub/features/news/data/repository/news_repository.dart';
 import 'package:fin_hub/features/news/presentation/screens/enable_notification_screen.dart';
 import 'package:fin_hub/features/news/presentation/screens/enter_name_screen.dart';
 import 'package:fin_hub/features/news/presentation/screens/news_feed_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,25 +16,31 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-          currentFocus.focusedChild?.unfocus();
-        }
-      },
-      child: MaterialApp(
-        title: 'FinHub',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return RepositoryProvider(
+      create: (context) => NewsRepository(),
+      child: BlocProvider(
+        create: (context) => NewsBloc(context.read<NewsRepository>()),
+        child: GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+              currentFocus.focusedChild?.unfocus();
+            }
+          },
+          child: MaterialApp(
+            title: 'FinHub',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            ),
+            initialRoute: "/",
+            routes: {
+              "/" : (_) => EnterNameScreen(),
+              "/enable-notification" : (_) => EnableNotificationScreen(),
+              "/news-feed" : (_) => NewsFeedScreen()
+            },
+          ),
         ),
-        initialRoute: "/",
-        routes: {
-          "/" : (_) => EnterNameScreen(),
-          "/enable-notification" : (_) => EnableNotificationScreen(),
-          "/news-feed" : (_) => NewsFeedScreen()
-        },
       ),
     );
   }

@@ -16,11 +16,13 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   void _fetchNews(FetchNews even, Emitter<NewsState> emit) async {
     emit(FetchNewsLoading());
     try {
+      debugPrint("Fetch news");
       final news = await newsRepository.fetchNews();
       emit(FetchNewsSuccess(news: news));
 
     }catch (e) {
       emit(FetchNewsError(message: e.toString()));
+      debugPrint("Fetch news error ${e.toString()}");
     }
   }
 }

@@ -1,17 +1,11 @@
 class NewsModel {
-  final String headline;
-  final String source;
-  final String image;
-  final DateTime date;
-  final String url;
+  final String? headline;
+  final String? source;
+  final String? image;
+  final DateTime? date;
+  final String? url;
 
-  NewsModel({
-    required this.headline,
-    required this.source,
-    required this.image,
-    required this.date,
-    required this.url,
-  });
+  NewsModel({this.headline, this.source, this.image, this.date, this.url});
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
     return NewsModel(
@@ -23,3 +17,4 @@ class NewsModel {
     );
   }
 }
+
