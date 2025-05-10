@@ -1,12 +1,12 @@
-import 'package:fin_hub/bloc/news_bloc.dart';
-import 'package:fin_hub/features/news/presentation/widgets/news_tile.dart';
-import 'package:fin_hub/shared/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import '../../../../bloc/news_bloc.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../shared/primary_button.dart';
 import '../../data/models/news_model.dart';
+import '../widgets/news_tile.dart';
 
 class NewsFeedScreen extends StatefulWidget {
   const NewsFeedScreen({super.key});

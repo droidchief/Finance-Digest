@@ -1,8 +1,8 @@
-import 'package:fin_hub/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../core/theme/app_colors.dart';
 import '../../data/models/user_model.dart';
 
 class EnterNameScreen extends StatefulWidget {
@@ -74,6 +74,7 @@ class _EnterNameScreenState extends State<EnterNameScreen> {
               TextFormField(
                 controller: firstNameController,
                 keyboardType: TextInputType.name,
+                textInputAction: TextInputAction.next,
                 style: TextStyle(
                   fontSize: 20,
                   color: AppColors.black,

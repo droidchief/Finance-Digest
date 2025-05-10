@@ -1,11 +1,12 @@
 import 'dart:io';
 
-import 'package:fin_hub/core/theme/app_colors.dart';
-import 'package:fin_hub/shared/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import '../../../../core/theme/app_colors.dart';
+import '../../../../shared/primary_button.dart';
 
 class EnableNotificationScreen extends StatefulWidget {
   const EnableNotificationScreen({super.key});

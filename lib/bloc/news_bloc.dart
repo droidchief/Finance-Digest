@@ -1,7 +1,8 @@
-import 'package:fin_hub/features/news/data/models/news_model.dart';
-import 'package:fin_hub/features/news/data/repository/news_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/foundation.dart';
+
+import '../features/news/data/models/news_model.dart';
+import '../features/news/data/repository/news_repository.dart';
 
 part 'news_event.dart';
 

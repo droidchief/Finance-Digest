@@ -1,9 +1,12 @@
-import 'package:fin_hub/core/theme/app_colors.dart';
-import 'package:fin_hub/features/news/data/models/news_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils.dart';
+import '../../data/models/news_model.dart';
+
 class NewsTile extends StatelessWidget {
   final NewsModel newsModel;
 
@@ -21,25 +24,34 @@ class NewsTile extends StatelessWidget {
             const SnackBar(content: Text('Could not open the news link.')),
           );
         }
-
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 100,
               height: 100,
-              decoration: BoxDecoration(
-                color: AppColors.black,
-                image: newsModel.image != null
-                    ? DecorationImage(
-                  image: NetworkImage(newsModel.image!),
-                  fit: BoxFit.cover,
-                )
-                    : null,
+              child: CachedNetworkImage(
+                imageUrl: newsModel.image ?? '',
+                fit: BoxFit.cover,
+                placeholder:
+                    (context, url) => Shimmer.fromColors(
+                      baseColor: Colors.grey.shade800,
+                      highlightColor: Colors.grey.shade700,
+                      child: Container(color: Colors.grey.shade800),
+                    ),
+                errorWidget:
+                    (context, url, error) => Container(
+                      color: Colors.grey,
+                      child: const Icon(
+                        Icons.broken_image,
+                        color: Colors.white,
+                      ),
+                    ),
               ),
             ),
+
             const Gap(16),
             Expanded(
               child: Column(
@@ -63,7 +75,9 @@ class NewsTile extends StatelessWidget {
                       ),
                       const Gap(10),
                       Text(
-                        newsModel.date != null ? formatDate(newsModel.date!) : 'Unknown date',
+                        newsModel.date != null
+                            ? formatDate(newsModel.date!)
+                            : 'Unknown date',
                         style: const TextStyle(
                           color: AppColors.white,
                           fontSize: 12,
@@ -84,7 +98,7 @@ class NewsTile extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

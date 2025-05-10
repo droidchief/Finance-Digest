@@ -1,10 +1,11 @@
-import 'package:fin_hub/bloc/news_bloc.dart';
-import 'package:fin_hub/features/news/data/repository/news_repository.dart';
-import 'package:fin_hub/features/news/presentation/screens/enable_notification_screen.dart';
-import 'package:fin_hub/features/news/presentation/screens/enter_name_screen.dart';
-import 'package:fin_hub/features/news/presentation/screens/news_feed_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/news_bloc.dart';
+import 'features/news/data/repository/news_repository.dart';
+import 'features/news/presentation/screens/enable_notification_screen.dart';
+import 'features/news/presentation/screens/enter_name_screen.dart';
+import 'features/news/presentation/screens/news_feed_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
