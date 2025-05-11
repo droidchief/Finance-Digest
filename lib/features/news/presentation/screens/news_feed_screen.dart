@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import '../../../../bloc/news_bloc.dart';
+import '../../../../bloc/user_bloc.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../shared/primary_button.dart';
 import '../../data/models/news_model.dart';
@@ -19,6 +20,7 @@ class NewsFeedScreen extends StatefulWidget {
 class _NewsFeedScreenState extends State<NewsFeedScreen> {
   @override
   void initState() {
+    context.read<UserBloc>().add(GetSavedUser());
     context.read<NewsBloc>().add(FetchNews());
     super.initState();
   }
@@ -38,19 +40,30 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
       appBar: AppBar(
         scrolledUnderElevation: 0,
         backgroundColor: AppColors.midnightBlue,
-        title: GestureDetector(
-          onTap: () {
-            context.read<NewsBloc>().add(FetchNews());
-          },
-          child: Text(
-            "Hey {first_name}",
-            style: TextStyle(
-              fontSize: 32,
-              height: 1.25,
-              fontWeight: FontWeight.bold,
-              color: AppColors.white,
-            ),
-          ),
+        title: BlocBuilder<UserBloc, UserState>(
+          builder: (context, state) {
+            if(state is GetSavedUserSuccess) {
+              debugPrint("get name success ${state.user}");
+              return Text(
+                "Hey ${state.user?.firstName ?? ""} ${state.user?.lastName ?? ""}",
+                style: TextStyle(
+                  fontSize: 32,
+                  height: 1.25,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.white,
+                ),
+              );
+            }
+            return Text(
+              "Hey",
+              style: TextStyle(
+                fontSize: 32,
+                height: 1.25,
+                fontWeight: FontWeight.bold,
+                color: AppColors.white,
+              ),
+            );
+          }
         ),
       ),
       body: SafeArea(

@@ -1,3 +1,5 @@
+import 'package:fin_hub/bloc/user_bloc.dart';
+import 'package:fin_hub/features/news/data/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,10 +19,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => NewsRepository(),
-      child: BlocProvider(
-        create: (context) => NewsBloc(context.read<NewsRepository>()),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<NewsRepository>(
+          create: (context) => NewsRepository(),
+        ),
+        RepositoryProvider<UserRepository>(
+          create: (context) => UserRepository(),
+        ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<NewsBloc>(
+            create: (BuildContext context) => NewsBloc(context.read<NewsRepository>()),
+          ),
+          BlocProvider<UserBloc>(
+            create: (BuildContext context) => UserBloc(context.read<UserRepository>()),
+          ),
+        ],
         child: GestureDetector(
           onTap: () {
             FocusScopeNode currentFocus = FocusScope.of(context);

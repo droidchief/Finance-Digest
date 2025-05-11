@@ -1,4 +1,6 @@
+import 'package:fin_hub/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -14,7 +16,6 @@ class EnterNameScreen extends StatefulWidget {
 
 class _EnterNameScreenState extends State<EnterNameScreen> {
   final _formKey = GlobalKey<FormState>();
-  User? user;
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   bool _isFormValid = false;
@@ -130,17 +131,30 @@ class _EnterNameScreenState extends State<EnterNameScreen> {
           ),
           child: GestureDetector(
             onTap:
-            _isFormValid
-                ? _checkPermissionAndNavigate
-                : null,
+                _isFormValid
+                    ? () {
+                      saveUser(
+                        firstName: firstNameController.text.trim(),
+                        lastName: lastNameController.text.trim(),
+                      );
+                      _checkPermissionAndNavigate();
+                    }
+                    : null,
             child: Container(
               height: 56,
               width: 56,
               decoration: BoxDecoration(
-                color: _isFormValid ? AppColors.primary : AppColors.primary.withOpacity(0.5),
-                shape: BoxShape.circle
+                color:
+                    _isFormValid
+                        ? AppColors.primary
+                        : AppColors.primary.withOpacity(0.5),
+                shape: BoxShape.circle,
               ),
-              child: Icon(Icons.arrow_forward_ios, color: AppColors.white, size: 20,),
+              child: Icon(
+                Icons.arrow_forward_ios,
+                color: AppColors.white,
+                size: 20,
+              ),
             ),
           ),
         ),
@@ -159,4 +173,8 @@ class _EnterNameScreenState extends State<EnterNameScreen> {
     }
   }
 
+  void saveUser({required String firstName, required String lastName}) {
+    final user = UserModel(firstName: firstName, lastName: lastName);
+    context.read<UserBloc>().add(SaveUser(user: user));
+  }
 }
