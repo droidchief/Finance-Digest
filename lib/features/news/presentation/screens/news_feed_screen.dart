@@ -57,7 +57,7 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
             style: TextStyle(
               fontSize: 32,
               height: 1.25,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w900,
               color: AppColors.white,
             ),
           ),
