@@ -9,6 +9,7 @@ import '../../../../shared/primary_button.dart';
 import '../../data/models/news_model.dart';
 import '../widgets/news_tile.dart';
 import '../widgets/news_tile_shimmer.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NewsFeedScreen extends StatefulWidget {
   const NewsFeedScreen({super.key});
@@ -18,6 +19,9 @@ class NewsFeedScreen extends StatefulWidget {
 }
 
 class _NewsFeedScreenState extends State<NewsFeedScreen> {
+  String fullName = "";
+
+
   @override
   void initState() {
     context.read<UserBloc>().add(GetSavedUser());
@@ -40,30 +44,23 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
       appBar: AppBar(
         scrolledUnderElevation: 0,
         backgroundColor: AppColors.midnightBlue,
-        title: BlocBuilder<UserBloc, UserState>(
-          builder: (context, state) {
+        title: BlocListener<UserBloc, UserState>(
+          listener: (BuildContext context, UserState state) {
             if(state is GetSavedUserSuccess) {
-              debugPrint("get name success ${state.user}");
-              return Text(
-                "Hey ${state.user?.firstName ?? ""} ${state.user?.lastName ?? ""}",
-                style: TextStyle(
-                  fontSize: 32,
-                  height: 1.25,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.white,
-                ),
-              );
+              setState(() {
+                fullName = "${state.user?.firstName ?? ""} ${state.user?.lastName ?? ""}";
+              });
             }
-            return Text(
-              "Hey",
-              style: TextStyle(
-                fontSize: 32,
-                height: 1.25,
-                fontWeight: FontWeight.bold,
-                color: AppColors.white,
-              ),
-            );
-          }
+          },
+          child: Text(
+            "Hey $fullName ",
+            style: TextStyle(
+              fontSize: 32,
+              height: 1.25,
+              fontWeight: FontWeight.bold,
+              color: AppColors.white,
+            ),
+          ),
         ),
       ),
       body: SafeArea(

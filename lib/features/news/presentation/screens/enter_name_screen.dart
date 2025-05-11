@@ -22,9 +22,9 @@ class _EnterNameScreenState extends State<EnterNameScreen> {
 
   @override
   void initState() {
-    super.initState();
     firstNameController.addListener(_validateForm);
     lastNameController.addListener(_validateForm);
+    super.initState();
   }
 
   void _validateForm() {

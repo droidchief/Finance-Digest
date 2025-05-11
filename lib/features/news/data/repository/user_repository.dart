@@ -19,7 +19,11 @@ class UserRepository {
 
   Future<bool> saveUser(UserModel user) async {
     try {
+      debugPrint("try save user $user");
       await UserPreferences.saveUser(user);
+      debugPrint("saved user success");
+      final us = await UserPreferences.getUser();
+      debugPrint("saved user ${us}");
       return true;
     } catch (e, stack ) {
       debugPrint("Couldn't save user");

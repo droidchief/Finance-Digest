@@ -25,4 +25,10 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       debugPrint("Fetch news error ${e.toString()}");
     }
   }
+
+  @override
+  void onChange(Change<NewsState> change) {
+    debugPrint("News bloc change $change");
+    super.onChange(change);
+  }
 }

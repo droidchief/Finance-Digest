@@ -36,5 +36,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(SaveUserError(message: e.toString()));
     }
   }
+
+  @override
+  void onChange(Change<UserState> change) {
+    debugPrint("User bloc change $change");
+    super.onChange(change);
+  }
 }
 

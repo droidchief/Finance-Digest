@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -65,10 +66,12 @@ class NewsTile extends StatelessWidget {
                           newsModel.source != null
                               ? newsModel.source!.toUpperCase()
                               : "Unverified source",
-                          style: const TextStyle(
-                            color: AppColors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
+                          style: GoogleFonts.rubik(
+                            textStyle: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -78,9 +81,12 @@ class NewsTile extends StatelessWidget {
                         newsModel.date != null
                             ? formatDate(newsModel.date!)
                             : 'Unknown date',
-                        style: const TextStyle(
-                          color: AppColors.white,
-                          fontSize: 12,
+                        style: GoogleFonts.rubik(
+                          textStyle: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ],
@@ -88,10 +94,12 @@ class NewsTile extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     newsModel.headline ?? "",
-                    style: const TextStyle(
-                      color: AppColors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
+                    style: GoogleFonts.roboto(
+                      textStyle: TextStyle(
+                        color: AppColors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
