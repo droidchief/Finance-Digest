@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../bloc/news_bloc.dart';
 import '../../../../bloc/user_bloc.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -52,12 +53,15 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
           },
           child: Text(
             "Hey $fullName ",
-            style: TextStyle(
-              fontSize: 32,
-              height: 1.25,
-              fontWeight: FontWeight.w900,
-              color: AppColors.white,
+            style: GoogleFonts.raleway(
+              textStyle: TextStyle(
+                fontSize: 32,
+                height: 1.25,
+                fontWeight: FontWeight.w900,
+                color: AppColors.white,
+              ),
             ),
+
           ),
         ),
       ),
@@ -67,7 +71,7 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
             Column(
               children: [
                 Container(
-                  height: 100,
+                  height: 110,
                   width: double.infinity,
                   color: AppColors.midnightBlue,
                 ),
@@ -109,23 +113,28 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
                     child: ListView(
                       physics: const AlwaysScrollableScrollPhysics(),
                       children: [
-                        Center(
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
+                              const Gap(20),
                               Text(
                                 state.message,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  height: 1.25,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.white,
+                                style: GoogleFonts.rubik(
+                                  textStyle: TextStyle(
+                                    fontSize: 16,
+                                    height: 1,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.white,
+                                  ),
                                 ),
-                                textAlign: TextAlign.center,
                               ),
-                              const Gap(20),
+                              const Gap(16),
                               PrimaryButton(
                                 width: 120,
+                                height: 45,
                                 onPressed: () {
                                   context.read<NewsBloc>().add(FetchNews());
                                 },
