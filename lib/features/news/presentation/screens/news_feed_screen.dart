@@ -6,10 +6,8 @@ import '../../../../bloc/news_bloc.dart';
 import '../../../../bloc/user_bloc.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../shared/primary_button.dart';
-import '../../data/models/news_model.dart';
 import '../widgets/news_tile.dart';
 import '../widgets/news_tile_shimmer.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class NewsFeedScreen extends StatefulWidget {
   const NewsFeedScreen({super.key});
@@ -111,32 +109,29 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
                     child: ListView(
                       physics: const AlwaysScrollableScrollPhysics(),
                       children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.8,
-                          child: Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  state.message,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    height: 1.25,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.white,
-                                  ),
-                                  textAlign: TextAlign.center,
+                        Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                state.message,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  height: 1.25,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.white,
                                 ),
-                                const Gap(20),
-                                PrimaryButton(
-                                  width: 120,
-                                  onPressed: () {
-                                    context.read<NewsBloc>().add(FetchNews());
-                                  },
-                                  text: "Retry",
-                                ),
-                              ],
-                            ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const Gap(20),
+                              PrimaryButton(
+                                width: 120,
+                                onPressed: () {
+                                  context.read<NewsBloc>().add(FetchNews());
+                                },
+                                text: "Retry",
+                              ),
+                            ],
                           ),
                         ),
                       ],

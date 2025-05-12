@@ -9,13 +9,12 @@ class PrimaryButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
   const PrimaryButton({
-    Key? key,
+    super.key,
     this.text,
     this.height,
     this.width,
     this.onPressed,
-  }) : assert(text != null),
-       super(key: key);
+  }) : assert(text != null);
 
   @override
   Widget build(BuildContext context) {
